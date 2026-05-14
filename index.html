@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Wizard Tester</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .dashboard {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 500px;
+        }
+        .status-box {
+            background: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: 0.2s;
+        }
+        .btn-primary { background: #2a206a; color: white; }
+        .btn-primary:hover { background: #1a1444; }
+        
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-danger:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <h1>Your Main Website</h1>
+        <p>This is your dummy homepage. Use the buttons below to trigger the different states of the wizard.</p>
+        
+        <div class="status-box" id="status-display">
+            Checking status...
+        </div>
+
+        <button class="btn btn-primary" onclick="simulateNewUser()">
+            1. Trigger Cookie (Simulate New User)
+        </button>
+        <br>
+        <button class="btn btn-danger" onclick="simulateReturningUser()">
+            2. Clear Everything (Simulate Returning User)
+        </button>
+    </div>
+
+    <script>
+        // Update the status box to show current state
+        function updateStatus() {
+            const cookie = document.cookie.includes('is_new_user=1') || document.cookie.includes('is_new_user=true');
+            const storage = localStorage.getItem('wizard_completed') === 'true';
+            
+            document.getElementById('status-display').innerHTML = `
+                <strong>Current State:</strong><br><br>
+                Cookie (is_new_user): <span style="color:${cookie ? 'green' : 'red'}">${cookie ? 'TRUE' : 'FALSE'}</span><br>
+                Local Storage (wizard_completed): <span style="color:${storage ? 'green' : 'red'}">${storage ? 'TRUE' : 'FALSE'}</span>
+            `;
+        }
+
+        // Sets the cookie, clears local storage, and reloads
+        function simulateNewUser() {
+            document.cookie = "is_new_user=1; path=/; max-age=3600"; // Set cookie valid for 1 hour
+            localStorage.removeItem('wizard_completed'); // Clear local memory
+            window.location.reload(); // Reload to trigger the gatekeeper
+        }
+
+        // Clears the cookie, sets local storage, and reloads
+        function simulateReturningUser() {
+            document.cookie = "is_new_user=false; path=/; max-age=0"; // Delete cookie
+            localStorage.setItem('wizard_completed', 'true'); // Set memory to done
+            window.location.reload();
+        }
+
+        // Run status check on load
+        updateStatus();
+    </script>
+
+
+    <script>
+        (function() {
+            // 1. Check local storage (to ensure we don't annoy returning users)
+            const hasSeenWizard = localStorage.getItem('wizard_completed');
+
+            // 2. Check the cookie (to see if your backend flagged them as new)
+            const isNewUserCookie = document.cookie.includes('is_new_user=1') || document.cookie.includes('is_new_user=true');
+
+            // 3. If they are flagged as new AND haven't completed it locally... load it!
+            if (isNewUserCookie && hasSeenWizard !== 'true') {
+                console.log("Gatekeeper: New user detected! Loading wizard.js...");
+                
+                const script = document.createElement('script');
+                script.src = './wizard.js'; // <-- MAKE SURE THIS POINTS TO YOUR JS FILE
+                script.async = true;
+                script.onload = function() {
+                    // Once loaded, trigger the global function
+                    if (window.openOnboardingWizard) {
+                        window.openOnboardingWizard({
+                            userEmail: 'testuser@example.com', // Dummy data for testing
+                            apiKey: 'test-api-key-123',
+                            onPreferencesUpdated: function() {
+                                console.log("Wizard callback triggered!");
+                                updateStatus(); // Update the testing UI
+                            }
+                        });
+                    }
+                };
+                
+                document.body.appendChild(script);
+            } else {
+                console.log("Gatekeeper: Returning user. Wizard ignored.");
+            }
+        })();
+    </script>
+
+</body>
+</html>
