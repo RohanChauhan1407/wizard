@@ -136,7 +136,7 @@
         document.head.appendChild(style);
     }
 
-    window.openOnboardingWizard = async function({ userEmail, apiKey }) {
+    window.openOnboardingWizard = async function({ userEmail }) {
         if (document.querySelector("#wizard-container")) return;
         injectCSS();
 
@@ -260,9 +260,20 @@
             const btn = wizard.querySelector("#wizard-main-btn");
             btn.textContent = "Saving..."; btn.disabled = true;
             try {
-                await fetch("https://j4x598n3y5.execute-api.us-east-2.amazonaws.com/dev/update-prefs", {
+                const tokenRes = await fetch("https://wlg0zddx63.execute-api.us-east-2.amazonaws.com/dev/generate-token", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", "x-api-key": apiKey },
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: userEmail })
+                });
+                const tokenData = await tokenRes.json();
+                const token = tokenData.token || tokenData;
+
+                await fetch("https://wlg0zddx63.execute-api.us-east-2.amazonaws.com/dev/update-prefs", {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}` 
+                    },
                     body: JSON.stringify({ email: userEmail, artist: state.artists, tags: state.tags, categories: state.categories })
                 });
             } finally {
@@ -274,7 +285,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         const s = document.getElementById("onboardingWizardScript");
         if (s && localStorage.getItem("wizard_completed") !== "true") {
-            window.openOnboardingWizard({ userEmail: s.dataset.email, apiKey: s.dataset.apikey });
+            window.openOnboardingWizard({ userEmail: s.dataset.email });
         }
     });
 })();
