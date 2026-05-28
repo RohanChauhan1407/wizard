@@ -3,6 +3,55 @@
  * Instant-Load Header Background Fix
  */
 (function () {
+    class ApiConfig {
+        constructor() {
+            this.initializeConfig();
+        }
+
+        initializeConfig() {
+            const hostname = window.location.hostname;
+
+            if (hostname.includes(".test")) {
+                this.prefAuth = "dev";
+                this.wpUrl = "https://cos.test/";
+            } else if (
+                !hostname ||
+                hostname === "localhost" ||
+                hostname === "127.0.0.1"
+            ) {
+                this.prefAuth = "dev";
+                this.wpUrl = "https://consequence.net/";
+            } else if (
+                hostname.includes("staging") ||
+                hostname.includes("beta") ||
+                hostname.includes("concerts-dev")
+            ) {
+                this.prefAuth = "dev";
+                this.wpUrl = "https://consequence.net/";
+            } else {
+                this.prefAuth = "prod";
+                this.wpUrl = "https://consequence.net/";
+            }
+
+            this.dataApiUrl = "https://concerts.consequence.net/";
+            this.proxyApiUrl = `https://wlg0zddx63.execute-api.us-east-2.amazonaws.com/${this.prefAuth}`;
+        }
+
+        getWpUrl() {
+            return this.wpUrl;
+        }
+
+        getDataApiUrl() {
+            return this.dataApiUrl;
+        }
+
+        getProxyApiUrl() {
+            return this.proxyApiUrl;
+        }
+    }
+
+    const apiConfig = new ApiConfig();
+    console.log('bundle loaded')
     const ONBOARDING_CATEGORIES = [
         { id: "654142004", name: "Music", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>` },
         { id: "494012083", name: "Reviews", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M9 9h6"></path><path d="M9 13h6"></path></svg>` },
@@ -205,7 +254,7 @@
         });
 
         // Background fetches
-        fetch("https://consequence.net/wp-json/consequence/v1/onboarding-tags").then(r => r.json()).then(tags => {
+        fetch(`${apiConfig.getWpUrl()}wp-json/consequence/v1/onboarding-tags`).then(r => r.json()).then(tags => {
             const tagBox = wizard.querySelector("#wizard-tags");
             (Array.isArray(tags) ? tags : []).forEach(t => {
                 const btn = document.createElement("button");
@@ -219,7 +268,7 @@
             });
         });
 
-        fetch("https://concerts.consequence.net/api/popular-artists").then(r => r.json()).then(data => {
+        fetch(`${apiConfig.getDataApiUrl()}api/popular-artists`).then(r => r.json()).then(data => {
             const artists = Array.isArray(data) ? data : (data?.artists || []);
             const artGrid = wizard.querySelector("#wizard-artists");
             artists.slice(0, 20).forEach(a => {
@@ -265,7 +314,7 @@
             const btn = wizard.querySelector("#wizard-main-btn");
             btn.textContent = "Saving..."; btn.disabled = true;
             try {
-                const tokenRes = await fetch("https://wlg0zddx63.execute-api.us-east-2.amazonaws.com/dev/generate-token", {
+                const tokenRes = await fetch(`${apiConfig.getProxyApiUrl()}/generate-token`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email: userEmail })
@@ -273,7 +322,7 @@
                 const tokenData = await tokenRes.json();
                 const token = tokenData.token || tokenData;
 
-                await fetch("https://wlg0zddx63.execute-api.us-east-2.amazonaws.com/dev/update-prefs", {
+                await fetch(`${apiConfig.getProxyApiUrl()}/update-prefs`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -295,7 +344,11 @@
     };
 
     const initWizard = () => {
-        const s = document.getElementById("onboardingWizardScript");
+        const s =
+            document.getElementById("onboardingWizardScript") ||
+            document.currentScript ||
+            document.querySelector('script[src*="wizard.js"]');
+
         if (s && localStorage.getItem("wizard_completed") !== "true") {
             window.openOnboardingWizard({ userEmail: s.dataset.email });
         }
