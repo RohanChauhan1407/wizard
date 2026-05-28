@@ -274,8 +274,10 @@
                 const card = document.createElement("div");
                 card.className = "artist-card";
 
-                // Uses raw URL to prevent 403 Forbidden errors
-                const rawImage = a.image || ONBOARDING_ARTIST_FALLBACK_IMAGE;
+                // Swap _source suffix for the smaller pre-sized CDN variant
+                const rawImage = a.image
+                    ? a.image.replace(/_source(\.[^.]+)?$/i, '_EVENT_DETAIL_PAGE_16_9.jpg')
+                    : ONBOARDING_ARTIST_FALLBACK_IMAGE;
 
                 card.innerHTML = `<div class="avatar" style="background-image:url('${rawImage}')"></div><div class="artist-name">${a.name}</div>`;
 
