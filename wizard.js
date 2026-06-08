@@ -59,11 +59,33 @@
         { id: "97314022", name: "Featured", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
     ];
 
+    const TRENDING_TAGS = [
+        { id: "494013402", name: "Album Announcement" },
+        { id: "13282992", name: "Indie Rock" },
+        { id: "720", name: "Alternative Rock" },
+        { id: "494013813", name: "Pop" },
+        { id: "494014214", name: "Hip-Hop" },
+        { id: "22885", name: "Trailer" },
+        { id: "42459", name: "Classic Rock" },
+        { id: "494014223", name: "Country" },
+        { id: "494014017", name: "Heavy Metal" },
+        { id: "654309958", name: "2026 Tour Dates" },
+        { id: "527090", name: "Standup Comedy" },
+        { id: "90980", name: "Hard Rock" }
+    ];
+
     const ONBOARDING_ARTIST_FALLBACK_IMAGE = "https://d2dyr1mvpoqi3o.cloudfront.net/preference-assets/images/artist-fallback-image.webp";
     const HEADER_BKG_URL = "https://cos-cdn-new.s3.us-east-1.amazonaws.com/preference-assets/images/header-gradient-bkg.jpg";
 
     function deleteNewUserCookie() {
-        document.cookie = "is_new_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        let domainString = "";
+
+        // If we are on any consequence.net subdomain, explicitly target the root domain
+        if (window.location.hostname.includes("consequence.net")) {
+            domainString = "domain=.consequence.net;";
+        }
+
+        document.cookie = "is_new_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; " + domainString;
     }
 
     function injectCSS() {
@@ -252,19 +274,17 @@
             catContainer.appendChild(el);
         });
 
-        // Background fetches
-        fetch(`${apiConfig.getWpUrl()}wp-json/consequence/v1/onboarding-tags`).then(r => r.json()).then(tags => {
-            const tagBox = wizard.querySelector("#wizard-tags");
-            (Array.isArray(tags) ? tags : []).forEach(t => {
-                const btn = document.createElement("button");
-                btn.className = "chip"; btn.textContent = t.name;
-                btn.onclick = () => {
-                    btn.classList.toggle("selected");
-                    const exists = state.tags.find(tag => tag.id === t.id);
-                    state.tags = exists ? state.tags.filter(tag => tag.id !== t.id) : [...state.tags, { id: t.id, name: t.name }];
-                };
-                tagBox.appendChild(btn);
-            });
+        const tagBox = wizard.querySelector("#wizard-tags");
+        TRENDING_TAGS.forEach(t => {
+            const btn = document.createElement("button");
+            btn.className = "chip";
+            btn.textContent = t.name;
+            btn.onclick = () => {
+                btn.classList.toggle("selected");
+                const exists = state.tags.find(tag => tag.id === t.id);
+                state.tags = exists ? state.tags.filter(tag => tag.id !== t.id) : [...state.tags, { id: t.id, name: t.name }];
+            };
+            tagBox.appendChild(btn);
         });
 
         fetch(`${apiConfig.getDataApiUrl()}api/popular-artists`).then(r => r.json()).then(data => {
@@ -308,7 +328,7 @@
         };
 
         wizard.querySelector("#wizard-back-btn").onclick = () => { if (state.step > 1) { state.step--; updateUI(); } };
-        wizard.querySelector("#wizard-close-btn").onclick = () => { deleteNewUserCookie(); localStorage.setItem('wizard_completed', 'true'); wizard.remove(); };
+        wizard.querySelector("#wizard-close-btn").onclick = () => { deleteNewUserCookie(); wizard.remove(); };
 
         wizard.querySelector("#wizard-main-btn").onclick = async () => {
             if (state.step < 3) { state.step++; updateUI(); return; }
@@ -337,7 +357,6 @@
 
             } finally {
                 deleteNewUserCookie();
-                localStorage.setItem('wizard_completed', 'true');
                 // We keep wizard.remove() here just in case the redirect takes a moment
                 wizard.remove();
             }
@@ -350,7 +369,7 @@
             document.currentScript ||
             document.querySelector('script[src*="wizard.js"]');
 
-        if (s && localStorage.getItem("wizard_completed") !== "true") {
+        if (s) {
             window.openOnboardingWizard({ userEmail: s.dataset.email });
         }
     };
