@@ -51,31 +51,49 @@
     }
 
     const apiConfig = new ApiConfig();
-    const ONBOARDING_CATEGORIES = [
-        { id: "654142004", name: "Music", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>` },
-        { id: "494012083", name: "Reviews", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M9 9h6"></path><path d="M9 13h6"></path></svg>` },
-        { id: "524", name: "Film", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>` },
-        { id: "494011850", name: "TV", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>` },
-        { id: "97314022", name: "Featured", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
-    ];
 
     const TRENDING_TAGS = [
-        { id: "494013402", name: "Album Announcement" },
-        { id: "13282992", name: "Indie Rock" },
-        { id: "720", name: "Alternative Rock" },
+        { id: "494014223", name: "Country" },
         { id: "494013813", name: "Pop" },
         { id: "494014214", name: "Hip-Hop" },
-        { id: "22885", name: "Trailer" },
-        { id: "42459", name: "Classic Rock" },
-        { id: "494014223", name: "Country" },
+        { id: "13282992", name: "Indie Rock" },
         { id: "494014017", name: "Heavy Metal" },
         { id: "654309958", name: "2026 Tour Dates" },
-        { id: "527090", name: "Standup Comedy" },
-        { id: "90980", name: "Hard Rock" }
+        { id: "720", name: "Alternative Rock" },
+        { id: "494014050", name: "Comedy" },
+        { id: "8215", name: "Festivals" },
+        { id: "494014138", name: "Movies" },
+        { id: "24323", name: "Rap" },
+        { id: "494014100", name: "Rock" },
+        { id: "494014139", name: "Electronic" },
+        { id: "2853", name: "Giveaway" },
+        { id: "494014125", name: "TV" },
+        { id: "42459", name: "Classic Rock" }
     ];
 
     const ONBOARDING_ARTIST_FALLBACK_IMAGE = "https://d2dyr1mvpoqi3o.cloudfront.net/preference-assets/images/artist-fallback-image.webp";
     const HEADER_BKG_URL = "https://cos-cdn-new.s3.us-east-1.amazonaws.com/preference-assets/images/header-gradient-bkg.jpg";
+
+    const POPULAR_ARTISTS = [
+        { id: "44182", name: "Radiohead", image: "https://consequence.net/wp-content/uploads/2016/03/radiohead.jpg?quality=80" },
+        { id: "26880", name: "Foo Fighters", image: "https://consequence.net/wp-content/uploads/2020/12/Foo-Fighters-photo-by-Danny-Clinch.jpeg?quality=80" },
+        { id: "972681", name: "Taylor Swift", image: "https://consequence.net/wp-content/uploads/2024/12/taylor-swift-eras-tour-ticket-sales.jpg?quality=80" },
+        { id: "714470", name: "Drake", image: "https://consequence.net/wp-content/uploads/2015/10/drake-davidbrendanhall-11.jpg?quality=80" },
+        { id: "77629", name: "Metallica", image: "https://consequence.net/wp-content/uploads/2023/01/Metallica.jpg?quality=80" },
+        { id: "18249", name: "Pearl Jam", image: "https://consequence.net/wp-content/uploads/2022/03/Pearl-Jam.jpg?quality=80" },
+        { id: "300777", name: "Jack White", image: "https://consequence.net/wp-content/uploads/2019/06/the-raconteurs-bored-razed-new-song-release-music-stream.png" },
+        { id: "654304518", name: "Olivia Rodrigo", image: ONBOARDING_ARTIST_FALLBACK_IMAGE },
+        { id: "116660", name: "Deftones", image: "https://consequence.net/wp-content/uploads/2011/01/deftones.jpg?quality=80" },
+        { id: "50773954", name: "The Weeknd", source: "wordpress", image: "https://consequence.net/wp-content/uploads/2022/01/the-weeknd.jpg?quality=80" },
+        { id: "494011468", name: "Turnstile", image: "https://consequence.net/wp-content/uploads/2021/08/Turnstile-1.jpg?quality=80" },
+        { id: "3090314", name: "SZA", image: "https://consequence.net/wp-content/uploads/2022/12/SZA.jpeg?quality=80" },
+        { id: "27950", name: "Beyoncé", image: ONBOARDING_ARTIST_FALLBACK_IMAGE },
+        { id: "574880386", name: "Bad Bunny", source: "wordpress", image: "https://consequence.net/wp-content/uploads/2022/02/Bad-Bunny-Chris-Cornejo.jpg?quality=80" },
+        { id: "26378491", name: "Kendrick Lamar", image: "https://consequence.net/wp-content/uploads/2015/03/screen-shot-2015-03-16-at-6-22-14-pm.png" },
+        { id: "36275202", name: "Lana Del Rey", image: "https://consequence.net/wp-content/uploads/2019/10/lana-del-rey.png" },
+        { id: "574878574", name: "Phoebe Bridgers", image: "https://consequence.net/wp-content/uploads/2020/10/Phoebe-Bridgers.jpeg?quality=80" },
+        { id: "2887", name: "Oasis", image: ONBOARDING_ARTIST_FALLBACK_IMAGE }
+    ];
 
     function deleteNewUserCookie() {
         let domainString = "";
@@ -183,6 +201,55 @@
             .btn-back { justify-self: start; background: none; border: none; color: var(--text-muted); font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; min-width: 120px; width: max-content; }
             .btn-next:hover, .btn-back:hover { border: none; }
 
+            /* Post-Finish Popup */
+            .wiz-popup-overlay {
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
+                background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+                display: flex; justify-content: center; align-items: center; z-index: 1000000; padding: 20px; box-sizing: border-box;
+                font-family: 'Montserrat', sans-serif;
+                animation: wizFadeIn 0.3s ease-out forwards;
+            }
+            .wiz-popup-card {
+                background: var(--modal-bg); border-radius: 20px; overflow: hidden;
+                box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+                max-width: 420px; width: 100%; text-align: center;
+                animation: wizFadeIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            }
+            .wiz-popup-header {
+                background: url('${HEADER_BKG_URL}') center/cover no-repeat, linear-gradient(167deg, rgba(239,96,94,1) 0%, rgba(236,76,104,1) 16%, rgba(237,82,101,1) 22%, rgba(129,79,187,1) 49%, rgba(69,31,192,1) 73%, rgba(74,82,218,1) 100%);
+                padding: 22px 30px; color: white;
+            }
+            .wiz-popup-header h3 {
+                margin: 0; font-size: 1.3rem; font-weight: 800;
+                text-transform: uppercase; letter-spacing: 1px;
+            }
+            .wiz-popup-header p { display: none; }
+            .wiz-popup-body { padding: 20px 28px 28px; }
+            .wiz-popup-subtitle {
+                margin: 0 0 20px; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; line-height: 1.5;
+            }
+            .wiz-popup-actions { display: flex; flex-direction: column; gap: 12px; }
+            .wiz-popup-btn-primary {
+                background: #2a206a;
+                color: white; border: none; padding: 14px 24px; border-radius: 10px;
+                font-family: inherit; font-weight: 700; font-size: 0.9rem;
+                cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px;
+                display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+                transition: background 0.2s ease, transform 0.15s ease;
+            }
+            .wiz-popup-btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
+            .wiz-popup-btn-primary:hover { background: #1a1444; transform: translateY(-1px); }
+            .wiz-popup-btn-secondary {
+                background: transparent; color: #2a206a; border: 2px solid #2a206a;
+                padding: 12px 24px; border-radius: 10px;
+                font-family: inherit; font-weight: 700; font-size: 0.9rem;
+                cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px;
+                display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+                transition: background 0.2s ease, transform 0.15s ease;
+            }
+            .wiz-popup-btn-secondary svg { width: 16px; height: 16px; flex-shrink: 0; }
+            .wiz-popup-btn-secondary:hover { background: rgba(42,32,106,0.06); transform: translateY(-1px); }
+
             /* Mobile Overrides */
             @media (max-width: 600px) {
                 .wizard-overlay { padding: 15px; }
@@ -202,6 +269,11 @@
                 .wizard-footer { grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px 20px; }
                 .footer-indicator { grid-column: 1 / span 2; order: -1; margin-bottom: 5px; }
                 .btn-back, .btn-next { min-width: 0; width: 100%; text-align: center; }
+
+                .wiz-popup-card { border-radius: 16px; }
+                .wiz-popup-header { padding: 18px 20px; }
+                .wiz-popup-header h3 { font-size: 1.1rem; }
+                .wiz-popup-body { padding: 20px 16px 24px; }
             }
         `;
         document.head.appendChild(style);
@@ -223,24 +295,6 @@
                 
                 <div class="wizard-content active" id="step-1">
                     <div class="step-header">
-                        <h2>What Are You Into?</h2>
-                        <p>Pick a few to build your feed.</p>
-                        <small class="microcopy">You can change this anytime.</small>
-                    </div>
-                    <div class="scrollable-area"><div class="category-grid" id="wizard-categories"></div></div>
-                </div>
-
-                <div class="wizard-content" id="step-2">
-                    <div class="step-header">
-                        <h2>Trending Now</h2>
-                        <p>Pick tags you want to follow.</p>
-                        <small class="microcopy">You can change this anytime.</small>
-                    </div>
-                    <div class="scrollable-area"><div class="chip-group" id="wizard-tags"></div></div>
-                </div>
-
-                <div class="wizard-content" id="step-3">
-                    <div class="step-header">
                         <h2>Who Do You Want More Of?</h2>
                         <p>Follow at least 5 to personalize your feed.</p>
                         <small class="microcopy">You can change this anytime.</small>
@@ -248,31 +302,42 @@
                     <div class="scrollable-area"><div class="artist-grid" id="wizard-artists"></div></div>
                 </div>
 
+                <div class="wizard-content" id="step-2">
+                    <div class="step-header">
+                        <h2>Tags &amp; Categories</h2>
+                        <p>Tailor Your Feed.</p>
+                        <small class="microcopy">You can change this anytime.</small>
+                    </div>
+                    <div class="scrollable-area"><div class="chip-group" id="wizard-tags"></div></div>
+                </div>
+
+
+
                 <div class="wizard-footer">
                     <button type="button" class="btn-back" id="wizard-back-btn" style="visibility:hidden">Back</button>
-                    <div class="footer-indicator" id="wiz-step-text">STEP 1 OF 3</div>
+                    <div class="footer-indicator" id="wiz-step-text">STEP 1 OF 2</div>
                     <button type="button" class="btn-next" id="wizard-main-btn">Next Step</button>
                 </div>
             </div>
         `;
 
         document.body.appendChild(wizard);
-        const state = { step: 1, categories: [], tags: [], artists: [] };
+        const state = { step: 1, tags: [], artists: [] };
         const modal = wizard.querySelector("#wizard-modal");
 
-        // Render data
-        const catContainer = wizard.querySelector("#wizard-categories");
-        ONBOARDING_CATEGORIES.forEach(cat => {
-            const el = document.createElement("div");
-            el.className = "cat-chip";
-            el.innerHTML = `${cat.icon}<span>${cat.name}</span>`;
-            el.onclick = () => {
-                el.classList.toggle("selected");
-                const exists = state.categories.find(c => c.id === cat.id);
-                state.categories = exists ? state.categories.filter(c => c.id !== cat.id) : [...state.categories, cat];
-            };
-            catContainer.appendChild(el);
-        });
+        function trackWizardEvent(eventAction, eventLabel = 'wizard_modal_step', eventName = 'wizard_view', eventCategory = 'onboarding') {
+            try {
+                if (typeof pushPrefEvent === 'function') {
+                    pushPrefEvent(eventAction, eventLabel, eventName, eventCategory);
+                }
+            } catch (err) {
+                console.error('[Wizard Analytics Error]', err);
+            }
+        }
+
+        // Track initial wizard opening and step 1 view
+        trackWizardEvent('wizard_modal_view', 'wizard_modal', 'wizard_view', 'onboarding');
+        trackWizardEvent('wizard_modal_step1', 'wizard_modal_step', 'wizard_view', 'onboarding');
 
         const tagBox = wizard.querySelector("#wizard-tags");
         TRENDING_TAGS.forEach(t => {
@@ -282,42 +347,40 @@
             btn.onclick = () => {
                 btn.classList.toggle("selected");
                 const exists = state.tags.find(tag => tag.id === t.id);
-                state.tags = exists ? state.tags.filter(tag => tag.id !== t.id) : [...state.tags, { id: t.id, name: t.name }];
+                state.tags = exists
+                    ? state.tags.filter(tag => tag.id !== t.id)
+                    : [...state.tags, { id: t.id, name: t.name }];
             };
             tagBox.appendChild(btn);
         });
 
-        fetch(`${apiConfig.getDataApiUrl()}api/popular-artists`).then(r => r.json()).then(data => {
-            const artists = Array.isArray(data) ? data : (data?.artists || []);
-            const artGrid = wizard.querySelector("#wizard-artists");
-            artists.slice(0, 20).forEach(a => {
-                const card = document.createElement("div");
-                card.className = "artist-card";
+        const artGrid = wizard.querySelector("#wizard-artists");
+        POPULAR_ARTISTS.forEach(a => {
+            const card = document.createElement("div");
+            card.className = "artist-card";
 
-                // Swap _source suffix for the smaller pre-sized CDN variant
-                const rawImage = a.image
-                    ? a.image.replace(/_source(\.[^.]+)?$/i, '_EVENT_DETAIL_PAGE_16_9.jpg')
-                    : ONBOARDING_ARTIST_FALLBACK_IMAGE;
+            const rawImage = a.image
+                ? a.image.replace(/_source(\.[^.]+)?$/i, '_EVENT_DETAIL_PAGE_16_9.jpg')
+                : ONBOARDING_ARTIST_FALLBACK_IMAGE;
 
-                card.innerHTML = `<div class="avatar" style="background-image:url('${rawImage}')"></div><div class="artist-name">${a.name}</div>`;
+            card.innerHTML = `<div class="avatar" style="background-image:url('${rawImage}')"></div><div class="artist-name">${a.name}</div>`;
 
-                card.onclick = () => {
-                    card.classList.toggle("selected");
-                    const exists = state.artists.find(art => art.id === a.id);
-                    state.artists = exists ? state.artists.filter(art => art.id !== a.id) : [...state.artists, a];
-                };
-                artGrid.appendChild(card);
-            });
+            card.onclick = () => {
+                card.classList.toggle("selected");
+                const exists = state.artists.find(art => art.id === a.id);
+                state.artists = exists ? state.artists.filter(art => art.id !== a.id) : [...state.artists, a];
+            };
+            artGrid.appendChild(card);
         });
 
         const updateUI = () => {
             const startHeight = modal.offsetHeight;
             wizard.querySelectorAll(".wizard-content").forEach((c, i) => c.classList.toggle("active", i + 1 === state.step));
 
-            wizard.querySelector("#wiz-progress").style.width = `${(state.step / 3) * 100}%`;
-            wizard.querySelector("#wiz-step-text").textContent = `STEP ${state.step} OF 3`;
+            wizard.querySelector("#wiz-progress").style.width = `${(state.step / 2) * 100}%`;
+            wizard.querySelector("#wiz-step-text").textContent = `STEP ${state.step} OF 2`;
             wizard.querySelector("#wizard-back-btn").style.visibility = state.step === 1 ? "hidden" : "visible";
-            wizard.querySelector("#wizard-main-btn").textContent = state.step === 3 ? "Finish Setup" : "Next Step";
+            wizard.querySelector("#wizard-main-btn").textContent = state.step === 2 ? "Finish Setup" : "Next Step";
 
             modal.style.height = "auto";
             const targetHeight = modal.offsetHeight;
@@ -327,11 +390,87 @@
             setTimeout(() => { if (modal) modal.style.height = "auto"; }, 400);
         };
 
+        function getSelectMoreArtistsUrl() {
+            const hostname = window.location.hostname;
+            if (hostname.includes("staging")) {
+                return "https://staging.consequence.net/preferences/#artist#add";
+            } else if (hostname.includes("concerts-dev")) {
+                return "https://concerts-dev.consequence.net/preferences#artist#add";
+            } else if (hostname.includes("concerts")) {
+                return "https://concerts.consequence.net/preferences#artist#add";
+            } else {
+                return "https://consequence.net/preferences/#artist#add";
+            }
+        }
+
+        function getPersonalizedFeedUrl() {
+            const hostname = window.location.hostname;
+
+            if (hostname === "concerts.consequence.net") {
+                return "https://consequence.net/my-content";
+            }
+
+            if (hostname.includes("staging") || hostname.includes("concerts-dev")) {
+                return "https://staging.consequence.net/my-content";
+            }
+
+            return window.location.origin + "/my-content";
+        }
+
+        function showPostFinishPopup() {
+            if (document.querySelector("#wiz-post-finish-popup")) return;
+            const popup = document.createElement("div");
+            popup.className = "wiz-popup-overlay";
+            popup.id = "wiz-post-finish-popup";
+            popup.innerHTML = `
+                <div class="wiz-popup-card">
+                    <div class="wiz-popup-header">
+                        <h3>You're All Set!</h3>
+                    </div>
+                    <div class="wiz-popup-body">
+                        <p class="wiz-popup-subtitle">Your preferences have been saved. What would you like to do next?</p>
+                        <div class="wiz-popup-actions">
+                            <button type="button" class="wiz-popup-btn-primary" id="wiz-go-feed-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                Go to Personalized Feed
+                            </button>
+                            <button type="button" class="wiz-popup-btn-secondary" id="wiz-more-artists-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+                                Select More Artists
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(popup);
+
+            popup.querySelector("#wiz-go-feed-btn").onclick = () => {
+                trackWizardEvent('wizard_modal_myfeed', 'wizard_modal_step', 'wizard_complete', 'onboarding');
+                window.location.href = getPersonalizedFeedUrl();
+            };
+
+            popup.querySelector("#wiz-more-artists-btn").onclick = () => {
+                trackWizardEvent('wizard_modal_myartists', 'wizard_modal_step', 'wizard_complete', 'onboarding');
+                window.location.href = getSelectMoreArtistsUrl();
+            };
+        }
+
         wizard.querySelector("#wizard-back-btn").onclick = () => { if (state.step > 1) { state.step--; updateUI(); } };
-        wizard.querySelector("#wizard-close-btn").onclick = () => { deleteNewUserCookie(); wizard.remove(); };
+        wizard.querySelector("#wizard-close-btn").onclick = () => {
+            trackWizardEvent(`wizard_abandon_step${state.step}`, 'wizard_modal_close', 'wizard_abandon', 'onboarding');
+            deleteNewUserCookie();
+            wizard.remove();
+        };
 
         wizard.querySelector("#wizard-main-btn").onclick = async () => {
-            if (state.step < 3) { state.step++; updateUI(); return; }
+            if (state.step < 2) {
+                trackWizardEvent('wizard_modal_step1_next', 'wizard_modal_button_click', 'wizard_complete', 'onboarding');
+                state.step++;
+                trackWizardEvent('wizard_modal_step2', 'wizard_modal_step', 'wizard_view', 'onboarding');
+                updateUI();
+                return;
+            }
+            trackWizardEvent('wizard_modal_step2_finish', 'wizard_modal_button_click', 'wizard_complete', 'onboarding');
             const btn = wizard.querySelector("#wizard-main-btn");
             btn.textContent = "Saving..."; btn.disabled = true;
             try {
@@ -349,17 +488,21 @@
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${token}`
                     },
-                    body: JSON.stringify({ email: userEmail, artist: state.artists, tags: state.tags, categories: state.categories })
+                    body: JSON.stringify({ email: userEmail, artist: state.artists, tags: state.tags })
                 });
-
-                // Redirect to the preferences page after successful save
-                window.location.href = window.location.origin + "/preferences#artist";
-
+            } catch (err) {
+                trackWizardEvent('wizard_modal_step2_failed', 'wizard_modal_save_failed', 'wizard_save_failed', 'onboarding');
+                console.error("Failed to save preferences:", err);
             } finally {
                 deleteNewUserCookie();
-                // We keep wizard.remove() here just in case the redirect takes a moment
                 wizard.remove();
+                showPostFinishPopup();
             }
+        };
+
+        window.testWizardPopup = () => {
+            if (document.querySelector("#wizard-container")) document.querySelector("#wizard-container").remove();
+            showPostFinishPopup();
         };
     };
 
