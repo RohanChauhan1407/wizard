@@ -82,17 +82,17 @@
         { id: "77629", name: "Metallica", image: "https://consequence.net/wp-content/uploads/2023/01/Metallica.jpg?quality=80" },
         { id: "18249", name: "Pearl Jam", image: "https://consequence.net/wp-content/uploads/2022/03/Pearl-Jam.jpg?quality=80" },
         { id: "300777", name: "Jack White", image: "https://consequence.net/wp-content/uploads/2019/06/the-raconteurs-bored-razed-new-song-release-music-stream.png" },
-        { id: "654304518", name: "Olivia Rodrigo", image: ONBOARDING_ARTIST_FALLBACK_IMAGE },
+        { id: "654304518", name: "Olivia Rodrigo", image: "https://consequence.net/wp-content/uploads/2026/06/Olivia-Rodrigo.jpeg?quality=80" },
         { id: "116660", name: "Deftones", image: "https://consequence.net/wp-content/uploads/2011/01/deftones.jpg?quality=80" },
         { id: "50773954", name: "The Weeknd", source: "wordpress", image: "https://consequence.net/wp-content/uploads/2022/01/the-weeknd.jpg?quality=80" },
         { id: "494011468", name: "Turnstile", image: "https://consequence.net/wp-content/uploads/2021/08/Turnstile-1.jpg?quality=80" },
         { id: "3090314", name: "SZA", image: "https://consequence.net/wp-content/uploads/2022/12/SZA.jpeg?quality=80" },
-        { id: "27950", name: "Beyoncé", image: ONBOARDING_ARTIST_FALLBACK_IMAGE },
+        { id: "27950", name: "Beyoncé", image: "https://consequence.net/wp-content/uploads/2026/04/6-Beyonce.jpg?quality=80" },
         { id: "574880386", name: "Bad Bunny", source: "wordpress", image: "https://consequence.net/wp-content/uploads/2022/02/Bad-Bunny-Chris-Cornejo.jpg?quality=80" },
         { id: "26378491", name: "Kendrick Lamar", image: "https://consequence.net/wp-content/uploads/2015/03/screen-shot-2015-03-16-at-6-22-14-pm.png" },
         { id: "36275202", name: "Lana Del Rey", image: "https://consequence.net/wp-content/uploads/2019/10/lana-del-rey.png" },
         { id: "574878574", name: "Phoebe Bridgers", image: "https://consequence.net/wp-content/uploads/2020/10/Phoebe-Bridgers.jpeg?quality=80" },
-        { id: "2887", name: "Oasis", image: ONBOARDING_ARTIST_FALLBACK_IMAGE }
+        { id: "2887", name: "Oasis", image: "https://consequence.net/wp-content/uploads/2024/09/Oasis-New-Wembley-Shows.jpg?quality=80" }
     ];
 
     function deleteNewUserCookie() {
